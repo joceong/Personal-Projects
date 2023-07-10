@@ -50,12 +50,14 @@ const checkBet = () => {
 const matchValue = (deck) => {
     let sum = 0
     let hasAce = false
+    let aceCounter = 0
     deck.forEach((card)=>{
         // get the first character
         const cardNum = card.slice(0,1)
         // convert the card to its corresponding number except 'A'
         if (cardNum === 'A') {
             hasAce = true
+            aceCounter += 1
         } else if (cardNum === 'J' || cardNum === 'Q' || cardNum === 'K') {
             sum += 10
         } else {
@@ -64,10 +66,12 @@ const matchValue = (deck) => {
     })
     // check if 'A' should be 1 or 11
     if (hasAce) {
-        if (sum + 11 > 21) {
-            sum += 1
-        } else {
-            sum += 11
+        for (let i=0; i<aceCounter; i++) {
+            if (sum + 11 > 21) {
+                sum += 1
+            } else {
+                sum += 11
+            }
         }
     }
     return sum
@@ -116,8 +120,8 @@ const checkValue = () => {
             playerSum = total
         }
     }
-    console.log(dealerSum)
-    console.log(playerSum)
+    // console.log(dealerSum)
+    // console.log(playerSum)
 }
 
 /**
